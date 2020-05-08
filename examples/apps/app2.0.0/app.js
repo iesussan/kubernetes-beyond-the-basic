@@ -27,13 +27,16 @@ healthCheck.registerReadinessCheck(readyCheck);
 //app
 app.listen(port,()=> {
 console.log('APP gc-kubernetes-demo 2.0.0 is running in port 8000');
-console.info(`${req.method} ${req.originalUrl}`) 
+//console.info(`${req.method} ${req.originalUrl}`) 
+
 })
 
 
 //create api
 app.get('/gc-kubernetes-demo', (req,res)=>{
     res.send('Kubernetes Beyond the Basic Demo Version 2.0.0');
+    console.info(`${req.method} ${req.originalUrl}`) 
+
     })
 
 app.use('/gc-kubernetes-demo/live', health.LivenessEndpoint(healthCheck));

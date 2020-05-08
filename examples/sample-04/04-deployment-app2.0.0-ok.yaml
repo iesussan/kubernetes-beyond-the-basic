@@ -6,7 +6,7 @@ metadata:
   generation: 1
   labels:
     app: app
-    version: 1.0.0
+    version: 2.0.0
   name: app
 spec:
   replicas: 2
@@ -23,11 +23,11 @@ spec:
       creationTimestamp: null
       labels:
         app: app
-        version: 1.0.0
+        version: 2.0.0
     spec:
       containers:
         - name: app
-          image: localhost:5000/gc-hcmc-kubernetes-demo:1.0.0
+          image: localhost:5000/gc-hcmc-kubernetes-demo:2.0.0
           imagePullPolicy: Always
           readinessProbe:
             httpGet:
@@ -54,8 +54,8 @@ spec:
               memory: "1Mi"
               cpu: "15m"
             limits:
-              memory: "2Mi"
-              cpu: "20m"
+              memory: "100Mi"
+              cpu: "200m"
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           env:
@@ -76,10 +76,10 @@ metadata:
   name: app
 spec:
   ports:
-    - name: http-secure
-      port: 9443
+    - name: app
+      port: 8000
       protocol: TCP
-      targetPort: 9443
+      targetPort: 8000
   selector:
     app: app
   sessionAffinity: None
@@ -94,18 +94,12 @@ metadata:
   name: app
 spec:
   rules:
-    - host: tmpingress.consultaretiroafp.pe
-      http:
+    - http:
         paths:
-          - backend:
+          - path: /gc-kubernetes-demo
+            backend:
               serviceName: app
               servicePort: 8000
-            path: /gc-kubernetes-demo
-  #tls:
-  #  - hosts:
-  #      - tmpingress.consultaretiroafp.pe
-  #    secretName: sslconsultaafp
-
 ---
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
@@ -116,7 +110,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: app
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 10
   metrics:
     - type: Resource

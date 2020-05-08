@@ -185,9 +185,9 @@ samples-01 [Ingresa Aqui](./sample-01/README.md) # Demo para aprender acerca de 
 # Ejercicios para Services
 samples-02 [Ingresa Aqui](./sample-02/README.md) # Demo para aprender acerca de SERVICES.
 # Ejercicios para Ingress
-samples-03 [Ingresa Aqui](./sample-02/README.md) # Demo para aprender acerca de INGRESS.
+samples-03 [Ingresa Aqui](./sample-03/README.md) # Demo para aprender acerca de INGRESS.
 # Ejercicios para Rollout y Rollback
-samples-04 [Ingresa Aqui](./sample-02/README.md) # Demo para aprender acerca de ROLLOUT y ROLLBACK.
+samples-04 [Ingresa Aqui](./sample-04/README.md) # Demo para aprender acerca de DEPLOYMENTS ROLLOUT y ROLLBACK.
 
 
 ## Siguientes sesiones:
