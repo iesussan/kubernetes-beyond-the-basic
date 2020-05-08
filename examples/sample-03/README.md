@@ -2,7 +2,7 @@
 
 ### Aplicamos la creacion del recurso:
 ```
-kubectl apply -f sample-03/03-service-app1.0.0-ok.yaml
+kubectl apply -f sample-03/03-ingress-app1.0.0-ok.yaml
 ```
 ### Para comprobar que la comunicacion mediante el ingress ejecutamos:
 ```
