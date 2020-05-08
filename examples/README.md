@@ -145,13 +145,15 @@ kubectl annotate node "gc-hcmc-kubernetes-demo-control-plane" "kind.x-k8s.io/reg
 bash apps/app1.0.0/build.sh
 ```
 
+### En pro de entender el flujo de publicacion de aplicaciones y hacer un soporte efectivo en caso de falla, ingresa al siguiente [link](https://learnk8s.io/a/f65ffe9f61de0f4a417f7a05306edd4c.png). Este los usaremos para los siguientes ejercicios.
+
 ### Ejecutar nuevamente el deployment del app1.0.0
 ```
 kubectl apply -f sample-01/01-pod-app1.0.0-fail1.yaml
 ```
 Se hace el ejercicio se soporte e indentificar la falla
 
-### Borrarmos el pod 
+### Borramos el pod 
 ```
 kubectl delete pods app
 ```
@@ -164,9 +166,18 @@ Se hace el ejercicio se soporte e indentificar la falla
 
 # Ejercicios para Pods
 
-samples-01 [Ingresa Aqui](./sample-01/README.md) # Demo y algunas cosas mas de como crear un recurso pod.
+samples-01 [Ingresa Aqui](./sample-01/README.md) # Demo para aprender acerca de PODS.
+# Ejercicios para Services
+samples-02 [Ingresa Aqui](./sample-02/README.md) # Demo para aprender acerca de SERVICES.
+# Ejercicios para Ingress
+samples-03 [Ingresa Aqui](./sample-02/README.md) # Demo para aprender acerca de INGRESS.
+# Ejercicios para Rollout y Rollback
+samples-04 [Ingresa Aqui](./sample-02/README.md) # Demo para aprender acerca de ROLLOUT y ROLLBACK.
 
-## Si quieres jugar con metricas de pods y nodes para hacer ejercicios de auto-scalado tienes que agregar tu metrics-server, este sirve para recoger las metricas de los recursos del cluster, para ello ejecuta:
+
+## Siguientes sesiones:
+
+### Si quieres jugar con metricas de pods y nodes para hacer ejercicios de auto-scalado tienes que agregar tu metrics-server, este sirve para recoger las metricas de los recursos del cluster, para ello ejecuta:
 
 ```bash
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml

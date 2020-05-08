@@ -1,0 +1,129 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  generation: 1
+  labels:
+    app: app
+    version: 2.0.0
+  name: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: app
+        version: 2.0.0
+    spec:
+      containers:
+        - name: app
+          image: localhost:5000/gc-hcmc-kubernetes-demo:2.0.0
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              path: /gc-kubernetes-demo/health
+              port: 8000
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /gc-kubernetes-demo/health
+              port: 8000
+            initialDelaySeconds: 20
+            timeoutSeconds: 2
+            periodSeconds: 30
+            failureThreshold: 3
+          ports:
+            - name: app
+              containerPort: 8000
+              protocol: TCP
+              resources:
+                requests:
+                  memory: "1Mi"
+                  cpu: "15m"
+                limits:
+                  memory: "2Mi"
+                  cpu: "20m"
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          env:
+            - name: GC_HYBRID_CLOUD
+              value: PERU
+      dnsPolicy: ClusterFirst
+      #imagePullSecrets:
+      #  - name: afp-docker-registry
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app
+  name: app
+  namespace: afp
+spec:
+  ports:
+    - name: http-secure
+      port: 9443
+      protocol: TCP
+      targetPort: 9443
+  selector:
+    app: app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTP
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+  name: app
+spec:
+  rules:
+    - host: tmpingress.consultaretiroafp.pe
+      http:
+        paths:
+          - backend:
+              serviceName: app
+              servicePort: 8000
+            path: /gc-kubernetes-demo
+  #tls:
+  #  - hosts:
+  #      - tmpingress.consultaretiroafp.pe
+  #    secretName: sslconsultaafp
+
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: app
+  namespace: afp
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: app
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 1700

@@ -27,6 +27,7 @@ healthCheck.registerReadinessCheck(readyCheck);
 //app
 app.listen(port,()=> {
 console.log('APP gc-kubernetes-demo 2.0.0 is running in port 8000');
+console.info(`${req.method} ${req.originalUrl}`) 
 })
 
 
