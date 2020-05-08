@@ -17,9 +17,9 @@ brew install kind
 
 ## Para Linux
 ```
-curl -sLo ./kind https://kind.sigs.k8s.io/dl/v0.8.0/kind-$(uname)-amd64
-chmod +x ./kind
-mv ./kind /some-dir-in-your-PATH/kind
+git clone https://github.com/is-daimonos/kubernetes-beyond-the-basic
+cd kubernetes-beyond-the-basic
+vagrant up
 ```
 
 
