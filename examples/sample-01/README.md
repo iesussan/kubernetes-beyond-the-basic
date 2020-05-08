@@ -2,7 +2,7 @@
 
 ### Lo primero que necesitamos es crear la version correcta del demo de pod y para ellos ejecutamos:
 ```
-kubectl apply -f 01-pod-app1.0.0-ok.yaml
+kubectl apply -f sample-01/01-pod-app1.0.0-ok.yaml
 ```
 ### Por si olvidaste en que puerto configurates como escucha de tu aplicacion con el siguiente comando puedes saberlo:
 ```bash
