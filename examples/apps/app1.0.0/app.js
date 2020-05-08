@@ -33,6 +33,7 @@ console.log('APP gc-kubernetes-demo 1.0.0 is running in port 8000');
 //create api
 app.get('/gc-kubernetes-demo', (req,res)=>{
     res.send('Kubernetes Beyond the Basic Demo Version 1.0.0');
+    console.info(`${req.method} ${req.originalUrl}`) 
     })
 
 app.use('/gc-kubernetes-demo/live', health.LivenessEndpoint(healthCheck));
