@@ -1,0 +1,21 @@
+{
+  "name": "gc-hcmc-kubernetes-demo",
+  "version": "2.0.0",
+  "description": "hello world para desmotrar un despliegue de app en kubernetes usando kind y kubernetes 1.16.9",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "devops",
+    "cloud",
+    "kubernetes"
+  ],
+  "author": "Jesus Sanchez",
+  "license": "MIT",
+  "dependencies": {
+    "@cloudnative/health-connect": "^2.1.0",
+    "express": "^4.17.1"
+  }
+}
