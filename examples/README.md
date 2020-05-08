@@ -57,7 +57,8 @@ kind create cluster \
 
 ### Agregamos ingress-controller
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+kubectl apply -f \
+  https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
 ```
 
 Para probar ejecutar un curl a localhost:
@@ -147,6 +148,13 @@ kind get nodes --name gc-hcmc-kubernetes-demo
 ```
 kubectl annotate node "gc-hcmc-kubernetes-demo-control-plane" "kind.x-k8s.io/registry=localhost:5000"
 ```
+### Agregamos ingress-controller (nuevamente)
+![](https://mememing.files.wordpress.com/2019/01/areyoufucking.jpg =250x)
+```
+kubectl apply -f \
+  https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+```
+
 ### Volver a ejecutar el build.sh de apps1.0.0
 ```bash
 bash apps/app1.0.0/build.sh
