@@ -1,4 +1,4 @@
-# Demo Kubernetes Beyond The Basic
+# Demo Kubernetes Beyond The Basic Sesion 1
 
 ### Si quieres correr tu cluster de pruebas en el local solo necesitas:
 * Vagrant
