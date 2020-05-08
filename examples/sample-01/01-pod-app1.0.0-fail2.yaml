@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  labels:
+    app: app
+    version: "1.0.0"
+spec:
+  containers:
+    - name: app-v1
+      image: localhost:5000/gc-hcmc-kubernetes-demo:1.0.0
+      imagePullPolicy: Always
+      readinessProbe:
+        httpGet:
+          path: /gc-kubernetes-demo/health1
+          port: 8000
+        initialDelaySeconds: 5
+        timeoutSeconds: 2
+        periodSeconds: 10
+        failureThreshold: 3
+      livenessProbe:
+        httpGet:
+          path: /gc-kubernetes-demo/health1
+          port: 8000
+        initialDelaySeconds: 20
+        timeoutSeconds: 2
+        periodSeconds: 30
+        failureThreshold: 3
+      ports:
+        - name: app
+          containerPort: 8000
+          protocol: TCP

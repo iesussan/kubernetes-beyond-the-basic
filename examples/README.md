@@ -10,16 +10,11 @@ brew install kind
 
 ## Para Linux
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.8.0/kind-$(uname)-amd64
+curl -sLo ./kind https://kind.sigs.k8s.io/dl/v0.8.0/kind-$(uname)-amd64
 chmod +x ./kind
 mv ./kind /some-dir-in-your-PATH/kind
 ```
 
-## Para Windows desde git-bash
-```
-curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.8.0/kind-windows-amd64
-Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
-```
 
 ### Crea tu cluster
 
@@ -65,7 +60,12 @@ curl http://localhost
 
 Nota: Como no hay ninguna aplicacion el curl respondera default backend 404
 
-### Para el ejercicio *01-pod-app1.0.0.yaml*, si los participantes consiguen la falla, destruir el cluster y crear de la siguiente manera
+### Ejecutar el ejercicio *01-pod-app1.0.0-fail1.yaml*.
+```
+kubectl apply -f sample-01/01-pod-app1.0.0-fail1.yaml
+```
+
+ si los participantes consiguen la falla, destruir el cluster y crear de la siguiente manera
 
 ### Destruir cluster
 
@@ -78,10 +78,22 @@ kind delete cluster --name gc-hcmc-kubernetes-demo
 ```bash
 docker run -d --restart=unless-stopped -p "5000:5000" --name "kind-registry" registry:2
 ```
-
+### Verifica que tu registry se esta ejecutando perfectamente
+```
+docker ps --filter "name=kind-registry"
+```
+output
+```
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+84ab536f99d9        registry:2          "/entrypoint.sh /etc…"   14 hours ago        Up 14 hours         0.0.0.0:5000->5000/tcp   kind-registry
+```
 ### Recrea  tu cluster
 
 ### kind configuration agregando el registry para tu entorno local
+Borrar la configuracion del cluster anterior
+```
+rm -rf kind-configuration.yaml
+```
 ```yaml
 cat <<EOF >> kind-configuration.yaml
 kind: Cluster
@@ -128,6 +140,32 @@ kind get nodes --name gc-hcmc-kubernetes-demo
 ```
 kubectl annotate node "gc-hcmc-kubernetes-demo-control-plane" "kind.x-k8s.io/registry=localhost:5000"
 ```
+### Volver a ejecutar el build.sh de apps1.0.0
+```bash
+bash apps/app1.0.0/build.sh
+```
+
+### Ejecutar nuevamente el deployment del app1.0.0
+```
+kubectl apply -f sample-01/01-pod-app1.0.0-fail1.yaml
+```
+Se hace el ejercicio se soporte e indentificar la falla
+
+### Borrarmos el pod 
+```
+kubectl delete pods app
+```
+
+### Ejecutar nuevamente el deployment del app1.0.0
+```
+kubectl apply -f sample-01/01-pod-app1.0.0-fail2.yaml
+```
+Se hace el ejercicio se soporte e indentificar la falla
+
+# Ejercicios para Pods
+
+samples-01 [Ingresa Aqui](./sample-01/README.md) # Demo y algunas cosas mas de como crear un recurso pod.
+
 ## Si quieres jugar con metricas de pods y nodes para hacer ejercicios de auto-scalado tienes que agregar tu metrics-server, este sirve para recoger las metricas de los recursos del cluster, para ello ejecuta:
 
 ```bash
@@ -180,6 +218,3 @@ NAME   CPU(cores)   MEMORY(bytes)
 app    1m           11Mi
 ```
 
-# Ejercicios para Pods
-
-samples-01 [Ingresa Aqui](./sample-01/README.md) # Demo y algunas cosas mas de como crear un recurso pod.
