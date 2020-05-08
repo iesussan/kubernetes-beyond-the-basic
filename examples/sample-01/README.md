@@ -4,7 +4,7 @@
 ```
 kubectl apply -f sample-01/01-pod-app1.0.0-ok.yaml
 ```
-### Por si olvidaste en que puerto configurates como escucha de tu aplicacion con el siguiente comando puedes saberlo:
+### Por si olvidaste en que puerto configurastes como escucha de tu aplicacion, con el siguiente comando puedes saberlo:
 ```bash
 kubectl get pod app --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
 ```
@@ -17,7 +17,7 @@ spec:
         [0]
           containerPort: 8000
 ```
-Nota: El bloque anterior describe como ocurrio la navegacion de los recursos del pod usando el cli de k8s, para obtener el puerto declarado para la exposicion de la aplicacion.
+Nota: El bloque anterior describe como ocurrio la navegacion de los recursos del pod usando el cli de k8s para obtener el puerto declarado para la exposicion de la aplicacion.
 
 ### Para comprobar que nuestro pod y aplicacion esta ejecutandose de forma correcta ejecutamos:
 ```
