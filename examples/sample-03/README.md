@@ -15,7 +15,7 @@ app    *       localhost   80      6m23s
 ```
 si ejecutamos un curl desde nuestra maquina:
 ```
-curl localhost:6969/gc-kubernetes-demo
+curl localhost/gc-kubernetes-demo
 ```
 output magico:
 ```
