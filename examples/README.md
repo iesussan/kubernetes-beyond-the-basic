@@ -1,5 +1,6 @@
 # Demo Kubernetes Beyond The Basic
-## Si quieres correr tu cluster de pruebas en el local solo necesitas tener GOLANG instalado en maquina.
+## Si quieres correr tu cluster de pruebas en el local solo necesitas tener GOLANG instalado en tu maquina.
+
 Nota: De preferencia usar un ambiente linux o mac. Adicionalmente tener docker instalado.
 
 ## Para Mac
@@ -126,6 +127,57 @@ kind get nodes --name gc-hcmc-kubernetes-demo
 ### Agregamos una notacion para que el nodo mediante la notacion *kind.x-k8s.io/registry* configure el registry que acabamos de crear 
 ```
 kubectl annotate node "gc-hcmc-kubernetes-demo-control-plane" "kind.x-k8s.io/registry=localhost:5000"
+```
+## Si quieres jugar con metricas de pods y nodes para hacer ejercicios de auto-scalado tienes que agregar tu metrics-server, este sirve para recoger las metricas de los recursos del cluster, para ello ejecuta:
+
+```bash
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml
+
+```
+Esta es la instalacion por defecto, ahora debes hacer un patch para transmitir metricas sin el soporte tls. Ejecuta:
+```
+kubectl patch deployment metrics-server -n kube-system -p '{"spec":{"template":{"spec":{"containers":[{"name":"metrics-server","args":["--cert-dir=/tmp", "--secure-port=4443","--v=2", "--kubelet-insecure-tls","--kubelet-preferred-address-types=InternalIP"]}]}}}}'
+```
+Al ejecutar 
+```
+kubectl get pods -n kube-system
+```
+apreciaras un nuevo pods con el nombre de metrics-server
+```
+metrics-server-6857c6489-4rwjg                                  1/1     Running   0          4m46s
+```
+Despues de unos minutos apreciaras el Scraping de las metricas
+```
+I0508 06:29:09.440261       1 manager.go:95] Scraping metrics from 1 sources
+I0508 06:29:09.447551       1 manager.go:120] Querying source: kubelet_summary:gc-hcmc-kubernetes-demo-control-plane
+I0508 06:29:09.475379       1 manager.go:148] ScrapeMetrics: time: 35.062035ms, nodes: 1, pods: 11
+I0508 06:30:09.441514       1 manager.go:95] Scraping metrics from 1 sources
+I0508 06:30:09.445296       1 manager.go:120] Querying source: kubelet_summary:gc-hcmc-kubernetes-demo-control-plane
+I0508 06:30:09.492869       1 manager.go:148] ScrapeMetrics: time: 51.275712ms, nodes: 1, pods: 11
+I0508 06:31:09.441779       1 manager.go:95] Scraping metrics from 1 sources
+I0508 06:31:09.443356       1 manager.go:120] Querying source: kubelet_summary:gc-hcmc-kubernetes-demo-control-plane
+I0508 06:31:09.477605       1 manager.go:148] ScrapeMetrics: time: 35.686828ms, nodes: 1, pods: 11
+I0508 06:32:09.441196       1 manager.go:95] Scraping metrics from 1 sources
+I0508 06:32:09.447803       1 manager.go:120] Querying source: kubelet_summary:gc-hcmc-kubernetes-demo-control-plane
+I0508 06:32:09.484723       1 manager.go:148] ScrapeMetrics: time: 43.40121ms, nodes: 1, pods: 11
+```
+Ejecutando 
+```
+kubectl top nodes
+```
+Aprecias los recursos de tu cluster de kind de kubernetes
+```
+NAME                                    CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+gc-hcmc-kubernetes-demo-control-plane   192m         4%     793Mi           39%
+```
+Y lo mismo pero para los pods
+```
+kubectl top pods
+```
+
+```
+NAME   CPU(cores)   MEMORY(bytes)
+app    1m           11Mi
 ```
 
 # Ejercicios para Pods
