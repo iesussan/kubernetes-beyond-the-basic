@@ -23,6 +23,7 @@ curl localhost/gc-kubernetes-demo
 output magico:
 ```
 Kubernetes Beyond the Basic Demo Version 1.0.0
+```
 
 ### Publica la aplicacion version 2.0.0 usando el siguiente deployment
 ```
