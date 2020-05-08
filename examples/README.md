@@ -1,5 +1,12 @@
 # Demo Kubernetes Beyond The Basic
-## Si quieres correr tu cluster de pruebas en el local solo necesitas tener GOLANG instalado en tu maquina.
+
+### Si quieres correr tu cluster de pruebas en el local solo necesitas:
+* Vagrant
+* Virtualbox
+
+### Para las pruebas de compilicacion:
+* node 14
+
 
 Nota: De preferencia usar un ambiente linux o mac. Adicionalmente tener docker instalado.
 
