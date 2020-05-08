@@ -149,7 +149,7 @@ kind get nodes --name gc-hcmc-kubernetes-demo
 kubectl annotate node "gc-hcmc-kubernetes-demo-control-plane" "kind.x-k8s.io/registry=localhost:5000"
 ```
 ### Agregamos ingress-controller (nuevamente)
-![](https://mememing.files.wordpress.com/2019/01/areyoufucking.jpg =250x)
+![](https://mememing.files.wordpress.com/2019/01/areyoufucking.jpg | width=100)
 ```
 kubectl apply -f \
   https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
