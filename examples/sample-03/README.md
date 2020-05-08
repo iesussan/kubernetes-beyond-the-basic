@@ -1,10 +1,10 @@
-### Para el caso de los ejercicios relacionados con pods
+### Para el caso de los ejercicios relacionados con Ingress
 
-### Lo primero que necesitamos es crear la version correcta del demo del service y para ellos ejecutamos:
+### Aplicamos la creacion del recurso:
 ```
 kubectl apply -f sample-02/02-service-app1.0.0-ok.yaml
 ```
-### Para comprobar que la comunicacion mediante la capa servicio ejecutamos:
+### Para comprobar que la comunicacion mediante el ingress ejecutamos:
 ```
 kubectl get ingress
 ```
