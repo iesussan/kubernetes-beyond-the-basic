@@ -157,7 +157,8 @@ kubectl apply -f \
 
 ### Volver a ejecutar el build.sh de apps1.0.0
 ```bash
-bash apps/app1.0.0/build.sh
+cd apps/app1.0.0
+bash build.sh
 ```
 
 ### En pro de entender el flujo de publicacion de aplicaciones y hacer un soporte efectivo en caso de falla, ingresa al siguiente [link](https://learnk8s.io/a/f65ffe9f61de0f4a417f7a05306edd4c.png). Este los usaremos para los siguientes ejercicios.
